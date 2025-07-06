@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useState } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
-import { PlusCircle, MessageSquare, ArrowUp } from 'lucide-react';
+import { PlusCircle, MessageSquare, ArrowUp, Filter } from 'lucide-react';
 
 const discussionTopics = [
   {
@@ -13,7 +13,8 @@ const discussionTopics = [
     avatar: 'https://github.com/shadcn.png',
     comments: 42,
     upvotes: 127,
-    excerpt: 'Einige sagen, er ist überstrapaziert, andere halten ihn für modern. Was ist eure Meinung?'
+    excerpt: 'Einige sagen, er ist überstrapaziert, andere halten ihn für modern. Was ist eure Meinung?',
+    category: 'Design Trends'
   },
   {
     id: 'brutalism-revival',
@@ -22,7 +23,8 @@ const discussionTopics = [
     avatar: 'https://github.com/maria.png',
     comments: 18,
     upvotes: 89,
-    excerpt: 'Brutalismus ist wieder da, aber anders. Lasst uns die neuen Formen und Ausprägungen diskutieren.'
+    excerpt: 'Brutalismus ist wieder da, aber anders. Lasst uns die neuen Formen und Ausprägungen diskutieren.',
+    category: 'Web Design'
   },
   {
     id: 'ai-in-design-tools',
@@ -31,12 +33,40 @@ const discussionTopics = [
     avatar: 'https://github.com/jonas.png',
     comments: 76,
     upvotes: 256,
-    excerpt: 'Von Figma-Plugins bis zu Midjourney: Welche KI-Tools nutzt ihr und wie beeinflussen sie eure Arbeit?'
+    excerpt: 'Von Figma-Plugins bis zu Midjourney: Welche KI-Tools nutzt ihr und wie beeinflussen sie eure Arbeit?',
+    category: 'Creator Tools'
+  },
+  {
+    id: 'responsive-design-challenges',
+    title: 'Herausforderungen im Responsive Design',
+    author: 'Tim Bergmann',
+    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NzI1Njd8MHwxfHNlYXJjaHwxfHxwb3J0cmFpdHxlbnwwfDB8fHwxNzUxODMwMDg3fDA&ixlib=rb-4.1.0&q=80&w=150',
+    comments: 55,
+    upvotes: 180,
+    excerpt: 'Diskussion über gängige Probleme und Lösungen bei der Umsetzung von Responsive Designs.',
+    category: 'Web Design'
+  },
+  {
+    id: 'design-systems-future',
+    title: 'Die Zukunft von Design Systemen: Flexibilität vs. Konsistenz',
+    author: 'Max Mustermann',
+    avatar: 'https://github.com/max.png',
+    comments: 60,
+    upvotes: 210,
+    excerpt: 'Wie balancieren wir die Notwendigkeit von Flexibilität mit der Aufrechterhaltung von Konsistenz in großen Design Systemen?',
+    category: 'UI/UX Design'
   }
 ];
 
+const categories = ['Alle', 'Design Trends', 'Web Design', 'Creator Tools', 'UI/UX Design'];
+
 const CommunityPage: React.FC = () => {
   const navigate = useNavigate();
+  const [activeCategory, setActiveCategory] = useState('Alle');
+
+  const filteredTopics = activeCategory === 'Alle'
+    ? discussionTopics
+    : discussionTopics.filter(topic => topic.category === activeCategory);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -53,8 +83,30 @@ const CommunityPage: React.FC = () => {
         </Button>
       </div>
 
+      {/* Category Filter */}
+      <div className="flex flex-wrap gap-2 mb-8">
+        <div className="flex items-center gap-2 text-gray-600">
+          <Filter className="w-4 h-4" />
+          <span className="font-medium">Filter nach:</span>
+        </div>
+        {categories.map((category) => (
+          <Button
+            key={category}
+            variant={activeCategory === category ? "default" : "outline"}
+            size="sm"
+            onClick={() => setActiveCategory(category)}
+            className={`${activeCategory === category
+              ? 'bg-violet-600 hover:bg-violet-700 text-white'
+              : 'hover:bg-violet-50 hover:text-violet-600 hover:border-violet-200'
+            } transition-all duration-300 rounded-full px-4 py-2`}
+          >
+            {category}
+          </Button>
+        ))}
+      </div>
+
       <div className="space-y-6">
-        {discussionTopics.map((topic) => (
+        {filteredTopics.map((topic) => (
           <Link to={`/community/${topic.id}`} key={topic.id} className="block hover:no-underline">
             <Card className="hover:shadow-lg hover:border-violet-200 transition-all duration-300">
               <CardHeader>
