@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { Badge } from '../components/ui/badge'
 import { Button } from '../components/ui/button'
 import { Card, CardContent, CardDescription, CardTitle } from '../components/ui/card'
@@ -165,42 +166,44 @@ const HeroGrid = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="lg:col-span-2 lg:row-span-2"
           >
-            <Card className="group relative overflow-hidden border-none shadow-lg hover:shadow-xl transition-all duration-300 h-full">
-              <div className="absolute inset-0">
-                <img
-                  src={featuredPosts[0]?.imageUrl}
-                  alt={featuredPosts[0]?.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              </div>
-              <div className="relative z-10 p-8 h-full flex flex-col justify-between">
-                <div>
-                  <Badge className="mb-4 bg-violet-500 text-white">
-                    <Star className="w-3 h-3 mr-1" />
-                    Best of the Week
-                  </Badge>
+            <Link to={`/blog/${featuredPosts[0]?.id}`}>
+              <Card className="group relative overflow-hidden border-none shadow-lg hover:shadow-xl transition-all duration-300 h-full cursor-pointer">
+                <div className="absolute inset-0">
+                  <img
+                    src={featuredPosts[0]?.imageUrl}
+                    alt={featuredPosts[0]?.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 </div>
-                <div className="text-white">
-                  <h2 className="text-2xl lg:text-3xl font-bold mb-3 leading-tight">
-                    {featuredPosts[0]?.title}
-                  </h2>
-                  <p className="text-white/90 mb-4 text-lg">
-                    {featuredPosts[0]?.excerpt}
-                  </p>
-                  <div className="flex items-center gap-4 text-sm text-white/80">
-                    <span className="flex items-center gap-1">
-                      <Calendar className="w-4 h-4" />
-                      {featuredPosts[0]?.date}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-4 h-4" />
-                      {featuredPosts[0]?.readTime}
-                    </span>
+                <div className="relative z-10 p-8 h-full flex flex-col justify-between">
+                  <div>
+                    <Badge className="mb-4 bg-violet-500 text-white">
+                      <Star className="w-3 h-3 mr-1" />
+                      Best of the Week
+                    </Badge>
+                  </div>
+                  <div className="text-white">
+                    <h2 className="text-2xl lg:text-3xl font-bold mb-3 leading-tight">
+                      {featuredPosts[0]?.title}
+                    </h2>
+                    <p className="text-white/90 mb-4 text-lg">
+                      {featuredPosts[0]?.excerpt}
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-white/80">
+                      <span className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4" />
+                        {featuredPosts[0]?.date}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-4 h-4" />
+                        {featuredPosts[0]?.readTime}
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
+            </Link>
           </motion.div>
 
           {/* Spotlight Topic */}
@@ -210,31 +213,33 @@ const HeroGrid = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="lg:col-span-1"
           >
-            <Card className="group relative overflow-hidden border-none shadow-lg hover:shadow-xl transition-all duration-300 h-full">
-              <div className="absolute inset-0">
-                <img
-                  src={featuredPosts[1]?.imageUrl}
-                  alt={featuredPosts[1]?.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              </div>
-              <div className="relative z-10 p-6 h-full flex flex-col justify-between">
-                <Badge className="mb-4 bg-purple-500 text-white w-fit">
-                  <TrendingUp className="w-3 h-3 mr-1" />
-                  Spotlight Topic
-                </Badge>
-                <div className="text-white">
-                  <h3 className="text-xl font-bold mb-2 leading-tight">
-                    {featuredPosts[1]?.title}
-                  </h3>
-                  <div className="flex items-center gap-2 text-sm text-white/80">
-                    <Clock className="w-4 h-4" />
-                    {featuredPosts[1]?.readTime}
+            <Link to={`/blog/${featuredPosts[1]?.id}`}>
+              <Card className="group relative overflow-hidden border-none shadow-lg hover:shadow-xl transition-all duration-300 h-full cursor-pointer">
+                <div className="absolute inset-0">
+                  <img
+                    src={featuredPosts[1]?.imageUrl}
+                    alt={featuredPosts[1]?.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                </div>
+                <div className="relative z-10 p-6 h-full flex flex-col justify-between">
+                  <Badge className="mb-4 bg-purple-500 text-white w-fit">
+                    <TrendingUp className="w-3 h-3 mr-1" />
+                    Spotlight Topic
+                  </Badge>
+                  <div className="text-white">
+                    <h3 className="text-xl font-bold mb-2 leading-tight">
+                      {featuredPosts[1]?.title}
+                    </h3>
+                    <div className="flex items-center gap-2 text-sm text-white/80">
+                      <Clock className="w-4 h-4" />
+                      {featuredPosts[1]?.readTime}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
+            </Link>
           </motion.div>
 
           {/* Featured Collab */}
@@ -244,31 +249,33 @@ const HeroGrid = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="lg:col-span-1"
           >
-            <Card className="group relative overflow-hidden border-none shadow-lg hover:shadow-xl transition-all duration-300 h-full">
-              <div className="absolute inset-0">
-                <img
-                  src={featuredPosts[2]?.imageUrl}
-                  alt={featuredPosts[2]?.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              </div>
-              <div className="relative z-10 p-6 h-full flex flex-col justify-between">
-                <Badge className="mb-4 bg-pink-500 text-white w-fit">
-                  <Eye className="w-3 h-3 mr-1" />
-                  Featured Collab
-                </Badge>
-                <div className="text-white">
-                  <h3 className="text-xl font-bold mb-2 leading-tight">
-                    {featuredPosts[2]?.title}
-                  </h3>
-                  <div className="flex items-center gap-2 text-sm text-white/80">
-                    <Clock className="w-4 h-4" />
-                    {featuredPosts[2]?.readTime}
+            <Link to={`/blog/${featuredPosts[2]?.id}`}>
+              <Card className="group relative overflow-hidden border-none shadow-lg hover:shadow-xl transition-all duration-300 h-full cursor-pointer">
+                <div className="absolute inset-0">
+                  <img
+                    src={featuredPosts[2]?.imageUrl}
+                    alt={featuredPosts[2]?.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                </div>
+                <div className="relative z-10 p-6 h-full flex flex-col justify-between">
+                  <Badge className="mb-4 bg-pink-500 text-white w-fit">
+                    <Eye className="w-3 h-3 mr-1" />
+                    Featured Collab
+                  </Badge>
+                  <div className="text-white">
+                    <h3 className="text-xl font-bold mb-2 leading-tight">
+                      {featuredPosts[2]?.title}
+                    </h3>
+                    <div className="flex items-center gap-2 text-sm text-white/80">
+                      <Clock className="w-4 h-4" />
+                      {featuredPosts[2]?.readTime}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
+            </Link>
           </motion.div>
         </div>
       </div>
@@ -303,6 +310,7 @@ const BlogCard = ({ post }: { post: BlogPost }) => {
   const [isBookmarked, setIsBookmarked] = useState(post.isBookmarked)
 
   const handleBookmark = (e: React.MouseEvent) => {
+    e.preventDefault()
     e.stopPropagation()
     setIsBookmarked(!isBookmarked)
   }
@@ -315,58 +323,60 @@ const BlogCard = ({ post }: { post: BlogPost }) => {
       whileHover={{ y: -5 }}
       className="group cursor-pointer"
     >
-      <Card className="overflow-hidden border-none shadow-md hover:shadow-xl transition-all duration-300 bg-white">
-        <div className="relative overflow-hidden">
-          <img
-            src={post.imageUrl}
-            alt={post.title}
-            className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
-          />
-          <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <Button
-              size="sm"
-              variant="ghost"
-              className="h-8 w-8 p-0 bg-white/80 hover:bg-white backdrop-blur-sm"
-              onClick={handleBookmark}
-            >
-              <BookmarkIcon className={`w-4 h-4 ${isBookmarked ? 'fill-violet-600 text-violet-600' : 'text-gray-600'}`} />
-            </Button>
-          </div>
-          <div className="absolute bottom-3 left-3">
-            <Badge className="bg-white/90 text-gray-700 border-none">
-              {post.category}
-            </Badge>
-          </div>
-        </div>
-        <CardContent className="p-6">
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
-            <Calendar className="w-4 h-4" />
-            <span>{post.date}</span>
-            <span>•</span>
-            <Clock className="w-4 h-4" />
-            <span>{post.readTime}</span>
-          </div>
-          <CardTitle className="text-xl font-bold mb-3 line-clamp-2 group-hover:text-violet-600 transition-colors">
-            {post.title}
-          </CardTitle>
-          <CardDescription className="text-gray-600 mb-4 line-clamp-3">
-            {post.excerpt}
-          </CardDescription>
-          <div className="flex items-center justify-between">
-            <div className="flex gap-2">
-              {post.tags.slice(0, 2).map((tag) => (
-                <Badge key={tag} variant="secondary" className="text-xs">
-                  {tag}
-                </Badge>
-              ))}
+      <Link to={`/blog/${post.id}`}>
+        <Card className="overflow-hidden border-none shadow-md hover:shadow-xl transition-all duration-300 bg-white">
+          <div className="relative overflow-hidden">
+            <img
+              src={post.imageUrl}
+              alt={post.title}
+              className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
+            />
+            <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <Button
+                size="sm"
+                variant="ghost"
+                className="h-8 w-8 p-0 bg-white/80 hover:bg-white backdrop-blur-sm"
+                onClick={handleBookmark}
+              >
+                <BookmarkIcon className={`w-4 h-4 ${isBookmarked ? 'fill-violet-600 text-violet-600' : 'text-gray-600'}`} />
+              </Button>
             </div>
-            <div className="flex items-center gap-1 text-sm text-gray-500">
-              <Eye className="w-4 h-4" />
-              <span>{post.views.toLocaleString()}</span>
+            <div className="absolute bottom-3 left-3">
+              <Badge className="bg-white/90 text-gray-700 border-none">
+                {post.category}
+              </Badge>
             </div>
           </div>
-        </CardContent>
-      </Card>
+          <CardContent className="p-6">
+            <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
+              <Calendar className="w-4 h-4" />
+              <span>{post.date}</span>
+              <span>•</span>
+              <Clock className="w-4 h-4" />
+              <span>{post.readTime}</span>
+            </div>
+            <CardTitle className="text-xl font-bold mb-3 line-clamp-2 group-hover:text-violet-600 transition-colors">
+              {post.title}
+            </CardTitle>
+            <CardDescription className="text-gray-600 mb-4 line-clamp-3">
+              {post.excerpt}
+            </CardDescription>
+            <div className="flex items-center justify-between">
+              <div className="flex gap-2">
+                {post.tags.slice(0, 2).map((tag) => (
+                  <Badge key={tag} variant="secondary" className="text-xs">
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+              <div className="flex items-center gap-1 text-sm text-gray-500">
+                <Eye className="w-4 h-4" />
+                <span>{post.views.toLocaleString()}</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </Link>
     </motion.div>
   )
 }

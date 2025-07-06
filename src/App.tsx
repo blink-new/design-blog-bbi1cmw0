@@ -7,6 +7,7 @@ import { Input } from './components/ui/input'
 import { Separator } from './components/ui/separator'
 import HomePage from './pages/Home'
 import BlogPage from './pages/Blog'
+import BlogArticle from './pages/BlogArticle'
 import CommunityPage from './pages/Community';
 import DiscussionTopicPage from './pages/DiscussionTopic';
 import ProfilePage from './pages/Profile';
@@ -156,6 +157,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:id" element={<BlogArticle />} />
             <Route path="/community" element={<CommunityPage />} />
             <Route path="/community/:topicId" element={<DiscussionTopicPage />} />
             <Route path="/profile/:userId" element={<ProfilePage />} />
