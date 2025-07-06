@@ -6,6 +6,7 @@ import { Button } from './components/ui/button'
 import { Input } from './components/ui/input'
 import { Separator } from './components/ui/separator'
 import HomePage from './pages/Home'
+import BlogPage from './pages/Blog'
 import CommunityPage from './pages/Community';
 import DiscussionTopicPage from './pages/DiscussionTopic';
 import ProfilePage from './pages/Profile';
@@ -33,6 +34,7 @@ const Header = () => {
 
           <nav className="hidden md:flex items-center space-x-8">
             <NavLink to="/" className={navLinkClasses}>Home</NavLink>
+            <NavLink to="/blog" className={navLinkClasses}>Blog</NavLink>
             <NavLink to="/community" className={navLinkClasses}>Community</NavLink>
             <NavLink to="/profile/user123" className={navLinkClasses}>Profil</NavLink>
             <a href="#" className="text-gray-700 hover:text-violet-600 transition-colors font-medium">Über uns</a>
@@ -71,6 +73,7 @@ const Header = () => {
           >
             <div className="flex flex-col space-y-4">
               <NavLink to="/" className={navLinkClasses} onClick={() => setMobileMenuOpen(false)}>Home</NavLink>
+              <NavLink to="/blog" className={navLinkClasses} onClick={() => setMobileMenuOpen(false)}>Blog</NavLink>
               <NavLink to="/community" className={navLinkClasses} onClick={() => setMobileMenuOpen(false)}>Community</NavLink>
               <NavLink to="/profile/user123" className={navLinkClasses} onClick={() => setMobileMenuOpen(false)}>Profil</NavLink>
               <a href="#" className="text-gray-700 hover:text-violet-600 transition-colors font-medium">Über uns</a>
@@ -120,6 +123,7 @@ const Footer = () => (
           <h3 className="font-semibold mb-4">Links</h3>
           <ul className="space-y-2 text-gray-400">
             <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
+            <li><Link to="/blog" className="hover:text-white transition-colors">Blog</Link></li>
             <li><Link to="/community" className="hover:text-white transition-colors">Community</Link></li>
             <li><a href="#" className="hover:text-white transition-colors">Über uns</a></li>
             <li><a href="#" className="hover:text-white transition-colors">Kontakt</a></li>
@@ -151,6 +155,7 @@ function App() {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/blog" element={<BlogPage />} />
             <Route path="/community" element={<CommunityPage />} />
             <Route path="/community/:topicId" element={<DiscussionTopicPage />} />
             <Route path="/profile/:userId" element={<ProfilePage />} />
