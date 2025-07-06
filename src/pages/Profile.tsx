@@ -18,7 +18,8 @@ import {
   Grid,
   Filter,
   Download,
-  ExternalLink
+  ExternalLink,
+  UserPlus
 } from 'lucide-react';
 
 // Mock data for the profile
@@ -136,14 +137,83 @@ const personalDesigns = [
   }
 ];
 
+// Mock data for user discussions
+const userDiscussions = [
+  {
+    id: 1,
+    title: 'Welche Farbpalette für minimalistisches Design?',
+    type: 'own' as const, // 'own' or 'participated'
+    replies: 23,
+    views: 456,
+    lastActivity: '2024-01-22',
+    category: 'Color Theory',
+    excerpt: 'Ich arbeite an einem minimalistischen Design-Projekt und suche nach der perfekten Farbpalette...'
+  },
+  {
+    id: 2,
+    title: 'Accessibility in modernen Web-Interfaces',
+    type: 'participated' as const,
+    replies: 67,
+    views: 1234,
+    lastActivity: '2024-01-20',
+    category: 'UX Design',
+    excerpt: 'Diskussion über die Wichtigkeit von Barrierefreiheit in modernen Webdesigns...'
+  },
+  {
+    id: 3,
+    title: 'Typography Trends 2024',
+    type: 'own' as const,
+    replies: 45,
+    views: 789,
+    lastActivity: '2024-01-18',
+    category: 'Typography',
+    excerpt: 'Welche Schriftarten werden 2024 dominieren? Meine Analyse der aktuellen Trends...'
+  },
+  {
+    id: 4,
+    title: 'Ist Glassmorphism noch relevant?',
+    type: 'participated' as const,
+    replies: 127,
+    views: 2341,
+    lastActivity: '2024-01-15',
+    category: 'Design Trends',
+    excerpt: 'Einige sagen, er ist überstrapaziert, andere halten ihn für modern...'
+  },
+  {
+    id: 5,
+    title: 'Mobile-First vs Desktop-First Design',
+    type: 'own' as const,
+    replies: 89,
+    views: 1567,
+    lastActivity: '2024-01-12',
+    category: 'Responsive Design',
+    excerpt: 'Meine Erfahrungen mit beiden Ansätzen und wann welcher besser geeignet ist...'
+  },
+  {
+    id: 6,
+    title: 'Dark Mode Best Practices',
+    type: 'participated' as const,
+    replies: 156,
+    views: 2890,
+    lastActivity: '2024-01-10',
+    category: 'UI Design',
+    excerpt: 'Diskussion über die besten Praktiken für Dark Mode Interfaces...'
+  }
+];
+
 const categories = ['Alle', 'Branding', 'Web Design', 'UX Design', 'Typography', 'UI Design'];
 
 const ProfilePage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('Alle');
+  const [discussionFilter, setDiscussionFilter] = useState('alle'); // 'alle', 'own', 'participated'
   
   const filteredPersonalDesigns = selectedCategory === 'Alle' 
     ? personalDesigns 
     : personalDesigns.filter(design => design.category === selectedCategory);
+
+  const filteredDiscussions = discussionFilter === 'alle' 
+    ? userDiscussions 
+    : userDiscussions.filter(discussion => discussion.type === discussionFilter);
 
   const levelProgress = (userData.level % 10) * 10;
   
@@ -193,6 +263,10 @@ const ProfilePage: React.FC = () => {
                       <Button variant="outline" size="sm">
                         <MessageSquare className="w-4 h-4 mr-2" />
                         Nachricht
+                      </Button>
+                      <Button variant="default" size="sm" className="bg-violet-600 hover:bg-violet-700">
+                        <UserPlus className="w-4 h-4 mr-2" />
+                        Folgen
                       </Button>
                     </div>
                   </div>
@@ -260,7 +334,7 @@ const ProfilePage: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           <Tabs defaultValue="challenges" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-8">
+            <TabsList className="grid w-full grid-cols-3 mb-8">
               <TabsTrigger value="challenges" className="flex items-center gap-2">
                 <Trophy className="w-4 h-4" />
                 Challenge Designs
@@ -269,8 +343,12 @@ const ProfilePage: React.FC = () => {
                 <Grid className="w-4 h-4" />
                 Persönliche Designs
               </TabsTrigger>
+              <TabsTrigger value="discussions" className="flex items-center gap-2">
+                <MessageSquare className="w-4 h-4" />
+                Diskussionen
+              </TabsTrigger>
             </TabsList>
-            
+
             {/* Challenge Designs Tab */}
             <TabsContent value="challenges">
               <div className="mb-6">
@@ -401,6 +479,96 @@ const ProfilePage: React.FC = () => {
                             </div>
                           </div>
                           <span>{new Date(design.date).toLocaleDateString('de-DE')}</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </TabsContent>
+            
+            {/* Discussions Tab */}
+            <TabsContent value="discussions">
+              <div className="mb-6">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                  <div>
+                    <h2 className="text-2xl font-bold mb-2">Diskussionen</h2>
+                    <p className="text-gray-600">Diskussionsthemen und Teilnahmen</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Filter className="w-4 h-4 text-gray-600" />
+                    <div className="flex gap-2 flex-wrap">
+                      <Button
+                        variant={discussionFilter === 'alle' ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => setDiscussionFilter('alle')}
+                        className="text-xs"
+                      >
+                        Alle
+                      </Button>
+                      <Button
+                        variant={discussionFilter === 'own' ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => setDiscussionFilter('own')}
+                        className="text-xs"
+                      >
+                        Meine Themen
+                      </Button>
+                      <Button
+                        variant={discussionFilter === 'participated' ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => setDiscussionFilter('participated')}
+                        className="text-xs"
+                      >
+                        Teilgenommen
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                {filteredDiscussions.map((discussion, index) => (
+                  <motion.div
+                    key={discussion.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    <Card className="hover:shadow-lg transition-all duration-300 cursor-pointer">
+                      <CardContent className="p-6">
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-2">
+                              <Badge 
+                                variant={discussion.type === 'own' ? 'default' : 'secondary'}
+                                className="text-xs"
+                              >
+                                {discussion.type === 'own' ? 'Erstellt' : 'Teilgenommen'}
+                              </Badge>
+                              <Badge variant="outline" className="text-xs">
+                                {discussion.category}
+                              </Badge>
+                            </div>
+                            <h3 className="text-xl font-semibold mb-2 hover:text-violet-600 transition-colors">
+                              {discussion.title}
+                            </h3>
+                            <p className="text-gray-600 mb-4">{discussion.excerpt}</p>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center justify-between text-sm text-gray-600">
+                          <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-1">
+                              <MessageSquare className="w-4 h-4" />
+                              {discussion.replies} Antworten
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Eye className="w-4 h-4" />
+                              {discussion.views} Aufrufe
+                            </div>
+                          </div>
+                          <span>Zuletzt aktiv: {new Date(discussion.lastActivity).toLocaleDateString('de-DE')}</span>
                         </div>
                       </CardContent>
                     </Card>

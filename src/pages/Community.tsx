@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
@@ -36,6 +36,8 @@ const discussionTopics = [
 ];
 
 const CommunityPage: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex flex-wrap justify-between items-center gap-4 mb-8">
@@ -62,13 +64,20 @@ const CommunityPage: React.FC = () => {
                 <p className="text-muted-foreground mb-4">{topic.excerpt}</p>
                 <div className="flex justify-between items-center text-sm text-muted-foreground">
                   <div className="flex items-center gap-2">
-                    <Link to={`/profile/user-${topic.id}`} className="flex items-center gap-2 hover:text-violet-600 transition-colors">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/profile/user-${topic.id}`);
+                      }}
+                      className="flex items-center gap-2 hover:text-violet-600 transition-colors focus:outline-none"
+                    >
                       <Avatar className="h-6 w-6">
                         <AvatarImage src={topic.avatar} alt={topic.author} />
                         <AvatarFallback>{topic.author.charAt(0)}</AvatarFallback>
                       </Avatar>
                       <span>{topic.author}</span>
-                    </Link>
+                    </button>
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-1">
