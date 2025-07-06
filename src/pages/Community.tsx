@@ -62,11 +62,13 @@ const CommunityPage: React.FC = () => {
                 <p className="text-muted-foreground mb-4">{topic.excerpt}</p>
                 <div className="flex justify-between items-center text-sm text-muted-foreground">
                   <div className="flex items-center gap-2">
-                    <Avatar className="h-6 w-6">
-                      <AvatarImage src={topic.avatar} alt={topic.author} />
-                      <AvatarFallback>{topic.author.charAt(0)}</AvatarFallback>
-                    </Avatar>
-                    <span>{topic.author}</span>
+                    <Link to={`/profile/user-${topic.id}`} className="flex items-center gap-2 hover:text-violet-600 transition-colors">
+                      <Avatar className="h-6 w-6">
+                        <AvatarImage src={topic.avatar} alt={topic.author} />
+                        <AvatarFallback>{topic.author.charAt(0)}</AvatarFallback>
+                      </Avatar>
+                      <span>{topic.author}</span>
+                    </Link>
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-1">

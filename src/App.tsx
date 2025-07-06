@@ -8,6 +8,7 @@ import { Separator } from './components/ui/separator'
 import HomePage from './pages/Home'
 import CommunityPage from './pages/Community';
 import DiscussionTopicPage from './pages/DiscussionTopic';
+import ProfilePage from './pages/Profile';
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -33,6 +34,7 @@ const Header = () => {
           <nav className="hidden md:flex items-center space-x-8">
             <NavLink to="/" className={navLinkClasses}>Home</NavLink>
             <NavLink to="/community" className={navLinkClasses}>Community</NavLink>
+            <NavLink to="/profile/user123" className={navLinkClasses}>Profil</NavLink>
             <a href="#" className="text-gray-700 hover:text-violet-600 transition-colors font-medium">Über uns</a>
             <a href="#" className="text-gray-700 hover:text-violet-600 transition-colors font-medium">Kontakt</a>
           </nav>
@@ -70,6 +72,7 @@ const Header = () => {
             <div className="flex flex-col space-y-4">
               <NavLink to="/" className={navLinkClasses} onClick={() => setMobileMenuOpen(false)}>Home</NavLink>
               <NavLink to="/community" className={navLinkClasses} onClick={() => setMobileMenuOpen(false)}>Community</NavLink>
+              <NavLink to="/profile/user123" className={navLinkClasses} onClick={() => setMobileMenuOpen(false)}>Profil</NavLink>
               <a href="#" className="text-gray-700 hover:text-violet-600 transition-colors font-medium">Über uns</a>
               <a href="#" className="text-gray-700 hover:text-violet-600 transition-colors font-medium">Kontakt</a>
               <div className="relative">
@@ -150,6 +153,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/community" element={<CommunityPage />} />
             <Route path="/community/:topicId" element={<DiscussionTopicPage />} />
+            <Route path="/profile/:userId" element={<ProfilePage />} />
           </Routes>
         </main>
         <Footer />
