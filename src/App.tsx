@@ -6,8 +6,8 @@ import { Button } from './components/ui/button'
 import { Input } from './components/ui/input'
 import { Separator } from './components/ui/separator'
 import HomePage from './pages/Home'
-import CommunityPage from './pages/Community'
-import { DiscussionTopicPage } from './pages/DiscussionTopic';
+import CommunityPage from './pages/Community';
+import DiscussionTopicPage from './pages/DiscussionTopic';
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
